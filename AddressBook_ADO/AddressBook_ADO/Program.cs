@@ -11,6 +11,10 @@ namespace AddressBook_ADO
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome To Address Book Ado .NET");
+            AddressBookRepository repo = new AddressBookRepository();
+            repo.GetAllEmployee();
+
+            Console.ReadLine();
         }
     }
 }
