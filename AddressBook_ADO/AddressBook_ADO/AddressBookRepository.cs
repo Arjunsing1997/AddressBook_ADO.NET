@@ -9,25 +9,26 @@ namespace AddressBook_ADO
 {
     public class AddressBookRepository
     {
-        public static string ConnectionString = "Data Source=DESKTOP-CL8506B;Initial Catalog=Address_Book_SQL;Integrated Security=True";
-        SqlConnection connection = new SqlConnection(ConnectionString);
+        public static SqlConnection ConnectionString()
+        {
+            string ConnectionString = "Data Source=DESKTOP-CL8506B;Initial Catalog=Address_Book_SQL;Integrated Security=True";
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            return connection;
+        }
+       
         public bool GetAllEmployee()
         {
+
             try
             {
+                SqlConnection connection = ConnectionString();
 
                 AddressBookModel model = new AddressBookModel();
                 connection.Open();
                 using (connection)
                 {
                     string query = @"SELECT * FROM Address_Book";
-
-
-
-                    SqlCommand cmd = new SqlCommand(query, this.connection);
-
-
-
+                    SqlCommand cmd = new SqlCommand(query, connection);
                     SqlDataReader dr = cmd.ExecuteReader();
 
                     if (dr.HasRows)
@@ -65,5 +66,32 @@ namespace AddressBook_ADO
                 throw new Exception(e.Message);
             }
         }
+
+        public bool AddNewdetails()
+        {
+            try
+            {
+                SqlConnection connection = ConnectionString();
+
+                AddressBookModel model = new AddressBookModel();
+                connection.Open();
+                using (connection)
+                {
+                    string query = @"INSERT INTO Address_Book VALUES('Ram','Ramesh','Bengaluru','Karnataka','560099','845784','ramraj@gmail.com');";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                   int  result = cmd.ExecuteNonQuery();        //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
+                    if(result != 0)
+                    {
+                        return true;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }

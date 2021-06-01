@@ -12,7 +12,8 @@ namespace AddressBook_ADO
         {
             Console.WriteLine("Welcome To Address Book Ado .NET");
             AddressBookRepository repo = new AddressBookRepository();
-            repo.GetAllEmployee();
+            repo.GetAllEmployee();  //Retrieving Data from DataBase
+            repo.AddNewdetails();   //Inserting values into the Table
 
             Console.ReadLine();
         }

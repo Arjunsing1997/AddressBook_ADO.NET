@@ -16,5 +16,16 @@ namespace AddressBookTest
             Assert.AreEqual(Exp, Actual);
 
         }
+
+        [TestMethod]
+        public void AddNewdetails()
+        {
+            AddressBookRepository addressBook = new AddressBookRepository();
+            bool Actual = addressBook.AddNewdetails();
+            bool Exp = true;
+
+            Assert.AreEqual(Exp, Actual);
+
+        }
     }
 }
