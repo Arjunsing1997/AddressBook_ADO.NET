@@ -69,23 +69,13 @@ namespace AddressBook_ADO
 
         public bool AddNewdetails()
         {
+            SqlConnection connection = ConnectionString();
             try
             {
-                SqlConnection connection = ConnectionString();
-
-                AddressBookModel model = new AddressBookModel();
-                connection.Open();
-                using (connection)
-                {
-                    string query = @"INSERT INTO Address_Book VALUES('Ram','Ramesh','Bengaluru','Karnataka','560099','845784','ramraj@gmail.com');";
-                    SqlCommand cmd = new SqlCommand(query, connection);
-                   int  result = cmd.ExecuteNonQuery();        //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
-                    if(result != 0)
-                    {
-                        return true;
-                    }
-                    return true;
-                }
+                string query = @"INSERT INTO Address_Book VALUES('Ram','Ramesh','Bengaluru','Karnataka','560099','845784','ramraj@gmail.com');";
+                bool returnValue = ExecuteQuery(query, connection);
+                Console.WriteLine("Row Inserted  Successfully....");
+                return returnValue;
             }
             catch (Exception e)
             {
@@ -99,17 +89,9 @@ namespace AddressBook_ADO
             try
             {
                 string query = @"update Address_Book set City = 'Nizamabad' , StateName = 'Hyderabad' where FirstName = 'Arjun';";
-                using (connection)
-                {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    connection.Open();
-                    int result = command.ExecuteNonQuery();  //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
-                    if (result != 0)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
+                bool returnValue = ExecuteQuery(query, connection);
+                Console.WriteLine("Row Updated  Successfully....");
+                return returnValue;
             }
             catch(Exception e)
             {
