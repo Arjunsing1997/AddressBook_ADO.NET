@@ -93,5 +93,28 @@ namespace AddressBook_ADO
             }
         }
 
+        public bool EditDetails()
+        {
+            SqlConnection connection = ConnectionString();
+            try
+            {
+                string query = @"update Address_Book set City = 'Nizamabad' , StateName = 'Hyderabad' where FirstName = 'Arjun';";
+                using (connection)
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();  //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
