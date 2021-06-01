@@ -123,22 +123,68 @@ namespace AddressBook_ADO
             try
             {
                 string query = @"DELETE FROM Address_Book WHERE FirstName = 'Ram';";
-                using (connection)
-                {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    connection.Open();
-                    int result = command.ExecuteNonQuery();  //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
-                    if (result != 0)
-                    {
-                        Console.WriteLine("Row Deleted Successfully.....");
-                        return true;
-                    }
-                    return false;
-                }
+                bool returnValue = ExecuteQuery(query, connection);
+                Console.WriteLine("Row Deleted  Successfully....");
+                return returnValue;
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+
+        public bool RetrieveByCity()
+        {
+            SqlConnection connection = ConnectionString();
+            AddressBookModel model = new AddressBookModel();
+            try
+            {
+                
+                string query = @"Select * from Address_Book Where City = 'Bengaluru';";
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                connection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                using (connection)
+                {
+                    if (dr.HasRows)
+                    {
+                        Console.WriteLine("FirstName\tCity");
+                        while (dr.Read())
+                        {
+                            model.FirstName = dr.GetString(0);
+                            model.City = dr.GetString(2);
+
+                            //Display Retrieve Data
+                            Console.WriteLine("{0}\t\t{1}", model.FirstName, model.City);
+                            //Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Data Not Found");
+                    }
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public bool ExecuteQuery(string query, SqlConnection connection)
+        {
+            using (connection)
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                int result = command.ExecuteNonQuery();  //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
+                if (result != 0)
+                {
+                    return true;
+                }
+                return false;
             }
         }
     }

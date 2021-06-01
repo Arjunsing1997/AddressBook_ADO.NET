@@ -23,7 +23,8 @@ namespace AddressBook_ADO
             Console.WriteLine("1)Display all Employee Details\n" +
                                "2)Add Details\n" +
                                "3)Edit\n" +
-                               "4)Delete ");
+                               "4)Delete" +
+                               "5)search by City ");
             int choice = Convert.ToInt32(Console.ReadLine());
 
             switch (choice)
@@ -40,6 +41,9 @@ namespace AddressBook_ADO
                     break;
                 case 4:
                     repo.DeleteContacts();
+                    break;
+                case 5:
+                    repo.RetrieveByCity();
                     break;
                 default :
                     Console.WriteLine("Invalid Choice");
