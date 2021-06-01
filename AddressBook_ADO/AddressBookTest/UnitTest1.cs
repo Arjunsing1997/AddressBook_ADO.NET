@@ -47,5 +47,16 @@ namespace AddressBookTest
             Assert.AreEqual(Exp, Actual);
 
         }
+
+        [TestMethod]
+        public void DeleteDetails()
+        {
+            AddressBookRepository addressBook = new AddressBookRepository();
+            bool Actual = addressBook.DeleteContacts();
+            bool Exp = true;
+
+            Assert.AreEqual(Exp, Actual);
+
+        }
     }
 }

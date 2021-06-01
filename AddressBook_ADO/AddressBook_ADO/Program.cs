@@ -10,13 +10,41 @@ namespace AddressBook_ADO
     {
         static void Main(string[] args)
         {
+            Program Employee = new Program();
             Console.WriteLine("Welcome To Address Book Ado .NET");
-            AddressBookRepository repo = new AddressBookRepository();
-            repo.GetAllEmployee();  //Retrieving Data from DataBase
-            //repo.AddNewdetails();   //Inserting values into the Table
-            repo.EditDetails();        //Editing Details
-
+            Employee.Menu();
             Console.ReadLine();
+        }
+
+        public void Menu()
+        {
+            AddressBookRepository repo = new AddressBookRepository();
+            Console.WriteLine("Enter Your Choice:");
+            Console.WriteLine("1)Display all Employee Details\n" +
+                               "2)Add Details\n" +
+                               "3)Edit\n" +
+                               "4)Delete ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    repo.GetAllEmployee();  //Retrieving Data from DataBase
+                    break;
+                case 2:
+                    repo.AddNewdetails();   //Inserting values into the Table
+                    break;
+
+                case 3:
+                    repo.EditDetails();
+                    break;
+                case 4:
+                    repo.DeleteContacts();
+                    break;
+                default :
+                    Console.WriteLine("Invalid Choice");
+                    break;
+            }
         }
     }
 }

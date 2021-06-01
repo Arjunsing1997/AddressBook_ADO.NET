@@ -116,5 +116,30 @@ namespace AddressBook_ADO
                 throw new Exception(e.Message);
             }
         }
+
+        public bool DeleteContacts()
+        {
+            SqlConnection connection = ConnectionString();
+            try
+            {
+                string query = @"DELETE FROM Address_Book WHERE FirstName = 'Ram';";
+                using (connection)
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();  //ExecuteNonQuery is to modify the the Date base Data and Returns Integer Value
+                    if (result != 0)
+                    {
+                        Console.WriteLine("Row Deleted Successfully.....");
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
